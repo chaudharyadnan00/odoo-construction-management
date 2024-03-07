@@ -1,0 +1,7 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_construction_management,access.construction.management,model_construction_management,base.group_user,1,1,1,1
+access_construction_management_offer,access.construction.management.offer,model_construction_management_offer,base.group_user,1,1,1,1
+access_construction_management_tag,access.construction.management.tag,model_construction_management_tag,base.group_user,1,1,1,1
+access_construction_management_type,access.construction.management.type,model_construction_management_type,base.group_user,1,1,1,1
+access_construction_management_payment,access.construction.management.payment,model_construction_management_payment,base.group_user,1,1,1,1
+access_construction_management_contractor,access.construction.management.contractor,model_construction_management_contractor,base.group_user,1,1,1,1

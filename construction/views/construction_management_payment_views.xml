@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="construction_management_payment_view_tree" model="ir.ui.view">
+        <field name="name">construction.management.payment.tree</field>
+        <field name="model">construction.management.payment</field>
+        <field name="arch" type="xml">
+            <tree string="Stages" editable="top">
+                <field name="account_number" />
+                <field name="amount" string="Pay" />
+                <field name="name" string="Payment Reference" />
+                <field name="date" />
+            </tree>
+        </field>
+    </record>
+    <!-- Form View -->
+    <record id="construction_management_payment_view_form" model="ir.ui.view">
+        <field name="name">construction.management.payment.form</field>
+        <field name="model">construction.management.payment</field>
+        <field name="arch" type="xml">
+            <form string="Group">
+                <sheet>
+                    <group>
+                        <field name="account_number" />
+                        <field name="amount" string="Pay" />
+                        <field name="name" string="Payment Reference" />
+                        <field name="date" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Define the action -->
+    <record id="construction_management_type_action" model="ir.actions.act_window">
+        <field name="name">Construction Types</field>
+        <field name="res_model">construction.management.type</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+    <!-- Tree View -->
+    <record id="construction_management_type_view_tree" model="ir.ui.view">
+        <field name="name">construction.management.type.tree</field>
+        <field name="model">construction.management.type</field>
+        <field name="arch" type="xml">
+            <tree string="Construction Types">
+                <field name="sequence" widget="handle" />
+                <field name="name" string="Title" />
+            </tree>
+        </field>
+    </record>
+    <!-- Form View -->
+    <record id="construction_management_type_view_form" model="ir.ui.view">
+        <field name="name">construction.management.type.form</field>
+        <field name="model">construction.management.type</field>
+        <field name="arch" type="xml">
+            <form string="Group">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <notebook>
+                        <page string="Constructions">
+                            <field name="construction_ids">
+                                <tree>
+                                    <field name="name" string="Title" />
+                                    <field name="client_budget" string="Client Budget" />
+                                    <field name="state" string="Status" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

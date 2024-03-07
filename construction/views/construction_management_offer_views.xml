@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="construction_management_offer_view_tree" model="ir.ui.view">
+        <field name="name">construction.management.offer.tree</field>
+        <field name="model">construction.management.offer</field>
+        <field name="arch" type="xml">
+            <tree string="Stages" editable="top"
+                decoration-success="status in ['accepted']"
+                decoration-danger="status in ['refused']">
+                <field name="offer_price" string="Offer Price" />
+                <field name="partner_id" string="Partner" />
+                <field name="validity" string="Validity (days)" />
+                <field name="offer_deadline" string="Deadline" />
+                <field name="expected_start_date" />
+                <button name="construction_management_offer_action_accept"
+                    invisible="status in ['accepted','refused']" string="Accept" type="object"
+                    icon="fa-check" />
+                <button name="construction_management_offer_action_refuse"
+                    invisible="status in ['accepted','refused']" string="Refuse" type="object"
+                    icon="fa-times" />
+                <field name="status" string="Status" optional="1" invisible="1" />
+            </tree>
+        </field>
+    </record>
+    <!-- Form View -->
+    <record id="construction_management_offer_view_form" model="ir.ui.view">
+        <field name="name">construction.management.offer.form</field>
+        <field name="model">construction.management.offer</field>
+        <field name="arch" type="xml">
+            <form string="Group">
+                <sheet>
+                    <group>
+                        <field name="offer_price" string="Price" />
+                        <field name="partner_id" string="Partner" />
+                        <field name="validity" string="Validity(days)" />
+                        <field name="offer_deadline" string="Deadline" />
+                        <field name="status" string="Status" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="construction_management_menu_root" name="Construction Management" web_icon="construction,static/description/construction.png">
+        <menuitem id="construction_management_first_level_menu" name="Dashboard">
+            <menuitem id="construction_management_menu_action"
+                action="construction_management_action" />
+        </menuitem>
+        <menuitem id="construction_management_setting_first_level_menu" name="Settings">
+            <menuitem id="construction_management_tag_menu_action"
+                action="construction_management_tag_action" />
+            <menuitem id="construction_management_type_menu_action"
+                action="construction_management_type_action" />
+        </menuitem>
+        <menuitem id="construction_management_contractor_first_level_menu" name="Contractors">
+            <menuitem id="construction_management_contractor_menu_action"
+                action="construction_management_contractor_action" />
+        </menuitem>
+    </menuitem>
+</odoo>

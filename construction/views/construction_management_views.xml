@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="construction_management_action" model="ir.actions.act_window">
+        <field name="name">Properties</field>
+        <field name="res_model">construction.management</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{'search_default_available':True}</field>
+    </record>
+    <!-- Tree View -->
+    <record id="construction_management_view_tree" model="ir.ui.view">
+        <field name="name">construction.management.tree</field>
+        <field name="model">construction.management</field>
+        <field name="arch" type="xml">
+            <tree string="Stages"
+                decoration-success="state in ['offer_received','offer_accepted']"
+                decoration-danger="state in ['completed']"
+                decoration-bf="state in ['offer_accepted']">
+                <field name="name" string="Title" />
+                <field name="tag_ids" widget="many2many_tags"
+                    options="{'color_field':'color'}" />
+                <field name="phone" />
+                <field name="total_area" />
+                <field name="tenure" string="Tenure (months)" />
+                <field name="client_budget" />
+                <field name="client_id" />
+                <field name="state" optional="1" invisible="1" />
+            </tree>
+        </field>
+    </record>
+    <!-- Form View -->
+    <record id="construction_management_view_form" model="ir.ui.view">
+        <field name="name">construction.management.form</field>
+        <field name="model">construction.management</field>
+        <field name="arch" type="xml">
+            <form string="Group">
+                <header>
+                    <button name="construction_management_action_complete"
+                        invisible="state in ['completed', 'failure']"
+                        string="Complete"
+                        type="object"
+                        class="oe_highlight" />
+                    <button name="construction_management_action_fail"
+                        invisible="state in ['completed', 'failure']"
+                        string="Fail"
+                        type="object"
+                        class="oe_highlight" />
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="new,offer_received,offer_accepted,execution,completed"
+                        string="State" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Title" />
+                        </h1>
+                        <h3>
+                            <field name="contract_id" />
+                        </h3>
+                        <div
+                            style="align-items:centre;display:flex;margin-top:10px;margin-bottom:10px;">
+                            <h5 style="margin-right:20px;">Construction Tags</h5>
+                            <field name="tag_ids" string="Tags" widget="many2many_tags"
+                                options="{'color_field':'color'}" placeholder="specify your tags..." />
+                        </div>
+                        <div
+                            style="align-items:centre;display:flex;margin-top:10px;margin-bottom:10px;">
+                            <h5 style="margin-right:20px;">Construction Type</h5>
+                            <field name="construction_type_id"
+                                string="Construction Type"
+                                options="{'no_create':True,'no_open':True}" />
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <div style="display: inline-block;">
+                                <h4>ADDRESS</h4>
+                                <hr style="width: 100%; margin-top: 0.1em; margin-bottom: 0.2em;" />
+                            </div>
+                            <seperator />
+                            <field name="address" string="Address" />
+                        </group>
+                        <group>
+                            <div style="display: inline-block;float:left;">
+                                <h4 style="display: inline;">CONTACT</h4>
+                                <hr style="width: 100%; margin-top: 0.1em; margin-bottom: 0.2em;" />
+                            </div>
+                            <seperator />
+                            <field name="email" />
+                            <field name="phone" />
+                        </group>
+                        <group>
+                            <div style="display: inline-block;">
+                                <h4>DURATION</h4>
+                                <hr style="width: 100%; margin-top: 0.1em; margin-bottom: 0.0em;" />
+                            </div>
+                            <seperator />
+                            <field name="tenure" string="Tenure (months)" style="margin-top:-5px;" />
+                            <!-- <seperator /> -->
+                            <field name="start_date" string="Start Date" />
+                            <field name="end_date" string="End Date" />
+                        </group>
+                        <group>
+                            <div style="display: inline-block;float:left;">
+                                <h4 style="display: inline;">BUDGET</h4>
+                                <hr style="width: 100%; margin-top: 0.1em; margin-bottom: 0.2em;" />
+                            </div>
+                            <seperator />
+                            <field name="client_budget" string="Client Budget" />
+                            <field name="contractor_budget" string="Contractor Budget" />
+                            <field name="pending_amount" string="Pending Amount"
+                                invisible="state in ['new','offer_received']" />
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                                <field name="description" string="Description" />
+                                <field name="active" />
+
+                                <field name="living_area" string="Living Area (sqm)" />
+                                <field name="garden" string="Garden" />
+                                <field name="garden_area" string="Garden Area (sqm)"
+                                    invisible="garden in [False]" />
+                                <field name="garden_orientation" string="Garden Orientation"
+                                    invisible="garden in [False]" />
+                                <field name="total_area" string="Total Area (sqm)" />
+                            </group>
+                            <group>
+                            </group>
+                        </page>
+                        <page string="Property Images">
+                            <group>
+                                <field name="image" widget="image"
+                                    options="{'size': (200, 250)}" />
+                            </group>
+                        </page>
+                        <page string="Offers">
+                            <field name="offer_ids"
+                                readonly="state in ['offer_accepted','completed','excution','failure']" />
+                        </page>
+                        <page string="Other Info">
+                            <group>
+                                <field name="client_id" string="Client" />
+                                <field name="contractor_id" string="Contractor" />
+                            </group>
+                        </page>
+                        <page string="Payments" invisible="state in ['new','offer_received']">
+                            <field name="payment_ids" readonly="pending_amount == 0" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Search View -->
+    <record id="construction_management_view_search" model="ir.ui.view">
+        <field name="name">construction.management.search</field>
+        <field name="model">construction.management</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="name" string="Title" />
+                <field name="email" string="Email" />
+                <field name="phone" string="Phone" />
+                <field name="client_budget" string="Client Budget" />
+                <field name="total_area" string="Total Area (sqm)"
+                    filter_domain="[('total_area', '>=', self)]" />
+                <separator />
+                <filter string="Available" name="available"
+                    domain="['|',('state', '=', 'new'),('state','=','offer_received')]" />
+                <group expand="1" string="Group By">
+                    <filter string="Start Date" name="start_date"
+                        context="{'group_by':'start_date'}" />
+                    <filter string="End Date" name="end_date" context="{'group_by':'end_date'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>
